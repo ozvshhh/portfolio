@@ -2,7 +2,7 @@
 
 개발자 이하은의 포트폴리오 사이트입니다.
 
-**https://d39sqbzqfq296f.cloudfront.net**
+**https://haeun.dev**
 
 프로젝트(U-TreeMap, 앤서러블, mealpick, 여보세요, BookSentimentLeague), 수상, 활동, 이력, 블로그 글을 한곳에 정리했습니다.
 
