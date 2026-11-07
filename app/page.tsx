@@ -1,69 +1,81 @@
-import Image from "next/image";
+import Link from "next/link";
+import Bio from "@/components/Bio";
+import { site } from "@/lib/site";
+import { getEntries } from "@/lib/blog";
+import EntryLink from "@/components/EntryLink";
 
 export default function Home() {
+  const posts = getEntries().slice(0, 8);
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="space-y-14">
+      <Bio />
+
+      <section>
+        <h2 className="mb-4 text-lg font-semibold">Projects</h2>
+        <ul className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
+          {site.projects.map((p) => (
+            <li key={p.title} className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+              <span className="flex gap-2 text-foreground">
+                <span aria-hidden className="text-muted">▪</span>
+                {p.title}
+              </span>
+              <span className="flex flex-wrap gap-x-3 text-sm text-muted">
+                {p.href && (
+                  <a href={p.href} className="link hover:text-foreground" target="_blank" rel="noreferrer">
+                    Demo ↗
+                  </a>
+                )}
+                {p.repos.map((r) => (
+                  <a key={r.href} href={r.href} className="link hover:text-foreground" target="_blank" rel="noreferrer">
+                    {p.repos.length === 1 ? "GitHub" : r.label} ↗
+                  </a>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <Link href="/projects" className="link mt-3 inline-block text-sm text-muted hover:text-foreground">
+          자세히 보기 →
+        </Link>
+      </section>
+
+      <section>
+        <h2 className="mb-4 text-lg font-semibold">Awards</h2>
+        <ul className="divide-y divide-line">
+          {site.awards.map((a) => (
+            <li key={a.event} className="flex justify-between gap-4 py-2">
+              <span>
+                <strong className="font-semibold">{a.title}</strong>
+                {a.href ? (
+                  <a href={a.href} className="link text-muted hover:text-foreground" target="_blank" rel="noreferrer">
+                    {" "}· {a.event}
+                  </a>
+                ) : (
+                  <span className="text-muted"> · {a.event}</span>
+                )}
+              </span>
+              <time className="shrink-0 text-sm text-muted">{a.date}</time>
+            </li>
+          ))}
+        </ul>
+        <Link href="/resume" className="link mt-3 inline-block text-sm text-muted hover:text-foreground">
+          전체 이력 보기 →
+        </Link>
+      </section>
+
+      <section>
+        <h2 className="mb-4 text-lg font-semibold">Blog</h2>
+        <ul>
+          {posts.map((p) => (
+            <li key={p.href}>
+              <EntryLink e={p} className="flex justify-between gap-4 py-2 hover:text-muted" />
+            </li>
+          ))}
+        </ul>
+        <Link href="/blog" className="link mt-3 inline-block text-sm text-muted hover:text-foreground">
+          모든 글 보기 →
+        </Link>
+      </section>
     </div>
   );
 }

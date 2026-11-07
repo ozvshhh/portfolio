@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local tooling / drafts
+/.claude/
+/github-profile-draft/
+
+# AWS 배포 식별자(스크립트가 생성)
+/deploy/.cloudfront.env
