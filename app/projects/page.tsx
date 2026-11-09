@@ -8,7 +8,7 @@ export default function Projects() {
   return (
     <ul className="space-y-8">
       {site.projects.map((p) => (
-        <li key={p.title}>
+        <li key={p.title} id={p.slug} className="scroll-mt-8">
           <div className="flex justify-between gap-4">
             <span className="font-semibold">{p.title}</span>
             <time className="shrink-0 text-sm text-muted">{p.period}</time>

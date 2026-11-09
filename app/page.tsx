@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Bio from "@/components/Bio";
 import { site } from "@/lib/site";
@@ -12,30 +13,49 @@ export default function Home() {
 
       <section>
         <h2 className="mb-4 text-lg font-semibold">Projects</h2>
-        <ul className="grid gap-x-8 gap-y-2 sm:grid-cols-2">
-          {site.projects.map((p) => (
-            <li key={p.title} className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-              <span className="flex gap-2 text-foreground">
-                <span aria-hidden className="text-muted">▪</span>
-                {p.title}
-              </span>
-              <span className="flex flex-wrap gap-x-3 text-sm text-muted">
-                {p.href && (
-                  <a href={p.href} className="link hover:text-foreground" target="_blank" rel="noreferrer">
-                    Demo ↗
-                  </a>
-                )}
-                {p.repos.map((r) => (
-                  <a key={r.href} href={r.href} className="link hover:text-foreground" target="_blank" rel="noreferrer">
-                    {p.repos.length === 1 ? "GitHub" : r.label} ↗
-                  </a>
-                ))}
-              </span>
-            </li>
-          ))}
+        <ul className="space-y-3">
+          {site.projects.map((p) => {
+            const thumb = p.images[0];
+            return (
+              <li
+                key={p.slug}
+                className="group relative flex flex-col gap-3 rounded-lg border border-line p-3 transition-colors hover:border-foreground/40 sm:flex-row sm:gap-4"
+              >
+                <div className="h-28 w-full shrink-0 overflow-hidden rounded-md bg-line/30 sm:h-24 sm:w-40">
+                  {thumb && (
+                    <Image src={thumb.src} alt="" width={thumb.w} height={thumb.h} className="h-full w-full object-contain p-1.5" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                    <Link href={`/projects#${p.slug}`} className="font-semibold after:absolute after:inset-0">
+                      {p.title}
+                    </Link>
+                    <time className="shrink-0 text-xs text-muted">{p.period}</time>
+                  </div>
+                  <p className="mt-1 text-sm leading-snug text-muted">{p.summary}</p>
+                  <p className="relative z-10 mt-2 flex flex-wrap gap-x-3 gap-y-0.5 text-xs text-muted">
+                    {p.href && (
+                      <a href={p.href} className="link hover:text-foreground" target="_blank" rel="noreferrer">
+                        Demo ↗
+                      </a>
+                    )}
+                    {p.repos.map((r) => (
+                      <a key={r.href} href={r.href} className="link hover:text-foreground" target="_blank" rel="noreferrer">
+                        {p.repos.length === 1 ? "GitHub" : r.label} ↗
+                      </a>
+                    ))}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
         </ul>
-        <Link href="/projects" className="link mt-3 inline-block text-sm text-muted hover:text-foreground">
-          자세히 보기 →
+        <Link
+          href="/projects"
+          className="link mt-3 inline-block text-sm text-muted hover:text-foreground"
+        >
+          프로젝트 자세히 보기 →
         </Link>
       </section>
 

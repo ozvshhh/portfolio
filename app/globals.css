@@ -46,3 +46,15 @@ a.link:hover {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* 본문 속 링크: 글자색을 따라가는 밑줄이라 라이트·다크 모두에서 보입니다 */
+a.link-text {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 50%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.15s;
+}
+a.link-text:hover {
+  text-decoration-color: currentColor;
+}
