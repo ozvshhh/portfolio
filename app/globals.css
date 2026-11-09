@@ -4,7 +4,7 @@
 :root {
   --background: #f8f9fb;
   --foreground: #1f2328;
-  --muted: #6b7280;
+  --muted: #4b5563;
   --line: #e4e7eb;
 }
 
@@ -12,7 +12,7 @@
   :root {
     --background: #111111;
     --foreground: #e6e6e6;
-    --muted: #9ca3af;
+    --muted: #b6bcc6;
     --line: #2a2a2a;
   }
 }
@@ -57,4 +57,13 @@ a.link-text {
 }
 a.link-text:hover {
   text-decoration-color: currentColor;
+}
+
+/* 가독성: 기본 글자를 17px로, 가장 작은 글자(text-xs)도 13px 이상으로 */
+html {
+  font-size: 17px;
+}
+.text-xs {
+  font-size: 0.8125rem;
+  line-height: 1.45;
 }
